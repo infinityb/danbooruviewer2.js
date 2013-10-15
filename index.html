@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="postcatApp">
+	<head>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<script type="text/javascript" src="jslib/jquery.min.js"></script>
+		<script type="text/javascript" src="jslib/angular.js"></script>
+		<script type='text/javascript' src='jslib/ng-infinite-scroll.min.js'></script>
+		<script type="text/javascript" src="jslib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/controllers.js"></script>
+	</head>
+	<body ng-controller="PostListCtrl">
+
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">DanbooruViewer.js</a>
+			</div>
+			<form class="navbar-form navbar-right" role="search" ng-submit="withTag(tagName)">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search" ng-model="tagName" />
+				</div>
+			</form>
+			<!--<select ng-model="orderProp"><option>Newest</option></select>-->
+		</nav>
+
+		<div class="posts" infinite-scroll='danbooru.nextPage()' infinite-scroll-disabled='danbooru.busy' infinite-scroll-distance='2'>
+			<!-- | filter:query -->
+			<article ng-repeat="post in danbooru.items" class="post-preview">
+				<a href="{{post.file_url}}"><img class="thumbnail" src="{{ post.preview_url }}"/></a>
+			</article>
+			 <div style='clear: both;'></div>
+			<div ng-show='danbooru.busy'>Loading data...</div>
+		</div>
+	</body>
+</html>
